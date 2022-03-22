@@ -22,11 +22,11 @@ const productSchema = mongoose.Schema({
   images: [
     {
       public_id: {
-        type: string,
+        type: String,
         required: true,
       },
       url: {
-        type: string,
+        type: String,
         required: true,
       },
     },
@@ -39,6 +39,34 @@ const productSchema = mongoose.Schema({
   Stock: {
     type: Number,
     required: [true, "Please Enter Product Stock"],
-    maxLength: [4, ""],
+    maxLength: [4, "Stock cannot exceed 4 characters"],
+    default: 1,
+  },
+  numOfReviews: {
+    type: Number,
+    default: 0,
+  },
+  reviews: [
+    {
+      name: {
+        type: String,
+        required: true,
+      },
+      rating: {
+        type: Number,
+        required: true,
+      },
+      comment: {
+        type: String,
+        required: true,
+      },
+    },
+  ],
+
+  createdAt: {
+    type: Date,
+    default: Date.now,
   },
 });
+
+module.exports = mongoose.model("Product", productSchema);
